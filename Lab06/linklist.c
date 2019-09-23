@@ -33,15 +33,14 @@ int move_to_head(linkedlist **listhead, int value) {
 }
 
 
-void free_linkedlist(linkedlist **listhead) {
+void free_linkedlist(linkedlist **listhead, int size) {
 	linkedlist* p = (*listhead)->next;
-	while(!p->next) {
+	for (int i = 1; i < size; i++) {
 		free(*listhead);
 		*listhead = p;
 		p = p->next;
 	}
 	free(*listhead);
-	free(p);
 }
 
 
@@ -70,18 +69,33 @@ int transpose(linkedlist **listhead, int req) {
 }
 
 int count(linkedlist **listhead, int req) {
+	int cost = 2;
 	linkedlist* p = (*listhead);
 	linkedlist* q = p;
 	linkedlist* w;
-	while(p->index != req) {
+	if(p->index == req) {
+		p->counter += 1;
+		return 1;
+	}
+	while(p->next->index != req) {
 		p = p->next;
+		cost++;
 	}
-	p->counter += 1;
-	int maxcounter = q->counter;	
-	while (q->next != p) {
-		if (q->next->counter > maxcounter) {
-			q = p->next;
-			maxcounter = q->counter;
-		}
+	p->next->counter += 1;
+	w = p->next;
+	if (p->next->counter >= q->counter) {
+		*listhead = w;
+		p->next = w->next;
+		w->next = q;
+		return cost;
 	}
+	while (q != w && q->next->counter >= w->counter) {
+		q = q->next;
+	}
+
+	p->next = w->next;
+	w->next = q->next;
+	q->next = w;
+
+	return cost;
 }

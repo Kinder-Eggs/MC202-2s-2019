@@ -3,7 +3,7 @@
 #include "linklist.h"
 
 typedef struct linkedlist linkedlist;
-	
+
 void start_list(linkedlist**, int);
 
 int main() {
@@ -21,7 +21,7 @@ int main() {
 		mtfcost += move_to_head(&listhead, req[i]);
 	}
 	printf("%d", mtfcost);
-	free_linkedlist(&listhead);
+	free_linkedlist(&listhead, size);
 
 	// Comeco do processo de Transpose
 
@@ -30,7 +30,7 @@ int main() {
 		transcost += transpose(&listhead, req[i]);
 	}
 	printf(" %d", transcost);
-	free_linkedlist(&listhead);
+	free_linkedlist(&listhead, size);
 
 	// Comeco do processo de Count
 
@@ -39,7 +39,7 @@ int main() {
 		countcost += count(&listhead, req[i]);
 	}
 	printf(" %d\n", countcost);
-	free_linkedlist(&listhead);
+	free_linkedlist(&listhead, size);
 }
 
 
