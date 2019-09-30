@@ -1,9 +1,10 @@
 #include "vector.h"
 // Gabriel Costa Kinder - 234720
 int main() {
-    char command[13];
+    char command[13];  // Variavel para verificacao do comando desejado
     scanf(" %s", command);
-    dynvector* vector = malloc(sizeof(dynvector));
+    dynvector* vector = malloc(sizeof(dynvector));  // Aloca o struct que contera o vetor dinamico
+    // Chama as funcoes correspondentes a cada comando ate ser recebido "exit"
     while(strcmp(command, "exit")) {
         if(!strcmp(command, "is-empty")) {
             if(vector_empty(vector)) {
@@ -28,9 +29,8 @@ int main() {
             scanf(" %d", &value);
             insert_first(vector, value);
         }
-        printf("\nOK\n\n");
-        
         scanf(" %s", command);
     }
-    //free_vector();
+    // Libera toda a memoria
+    free_vector(vector);
 }
