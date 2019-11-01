@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #define SIZEOFTABLE 7213
 
@@ -20,12 +21,10 @@ int main() {
 
 unsigned long hash_str(char* string) {
     unsigned long hash = 0;
-    int c = *string++;
-    int strsize = strlen(string)+1;
-    for(int i=1; i<strsize; i++) {
-        hash += (c*i*55) % SIZEOFTABLE;
+    int strsize = strlen(string);
+    for(int i=0; i < strsize; i++) {
+        hash += (string[i]*((long)pow(i+1,i+1))*55) % SIZEOFTABLE;
         hash = hash;
-        c = *string++;
     }
     printf("%lu", hash%SIZEOFTABLE);
     return hash % SIZEOFTABLE;
